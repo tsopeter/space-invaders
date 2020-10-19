@@ -58,16 +58,15 @@ function setup(){
 	
 	//
 	//setup the enemy
-	let e = new invader(10, 10, 1, resource[4], resource[7]);
-	let g = new invader(13, 10, 1, resource[4], resource[7]);
+	objArr.push(new invader(10, 10, 1, resource[4], resource[7]));
+	objArr.push(new invader(12, 10, 1, resource[4], resource[7]));
+	objArr.push(new invader(14, 10, 1, resource[4], resource[7]));
 	console.log('invader object(s) loaded');
 	
-	
+	//
+	//setup blocks
 	chunkBlockAdder();
 	console.log('block object(s) loaded');
-	
-	objArr.push(e);
-	objArr.push(g);
 	
 	console.log('setup finished');
 	
