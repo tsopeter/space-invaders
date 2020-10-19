@@ -37,6 +37,18 @@ function ending(){
 
 }
 
+function menuShell(){
+	menu();
+	menuAddClicker();
+}
+
+function menuAddClicker(){
+	//
+	//enable clicking of the screen
+	canvas.addEventListener('click', menuFunction(event));	
+	console.log('canvas added click');	
+}
+
 function menu(){
 	//
 	//draw the title and background
@@ -51,20 +63,21 @@ function menu(){
 	//
 	//draw the editor button
 	draw(title[2], (canvas.width / 2) - 131, (canvas.height / 2) + 150);
-	
-	//
-	//enable clicking of the screen
-	canvas.addEventListener('click', menuFunction(event));	
-	console.log('canvas added click');
 }
 
-function setup(){
-	console.log('setup started');
+function playerSetup(){
+	console.log('player setup started');
 	//
 	//load all sprites into the respective objects
 	p.setSprite(resource[0]);
 	objArr.push(p);
 	console.log('player object loaded');
+	
+	console.log('player setup ended');	
+}
+
+function gameSetup(){
+	console.log('setup started');
 	
 	//
 	//setup the enemy
@@ -97,10 +110,13 @@ function blockAdder(start, end, startHeight, endHeight){
 
 function progShell(){
 	console.log('programShell Called');
-	canvas.removeEventListener('click', menuFunction(event));
 	console.log('canvas removed click');
 	
 	console.log('program Called');
+	playerSetup();
+	if(!edited || objArr.length == 1){
+		gameSetup();
+	}
 	prog(0);
 }
 

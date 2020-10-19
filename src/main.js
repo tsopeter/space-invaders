@@ -1,7 +1,6 @@
 main = () => {
 	console.log('Main started');
-	setup();
-	menu();
+	menuShell();
 	//prog(0);
 	
 	console.log('Main ended');
