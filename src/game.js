@@ -2,8 +2,8 @@ menuFunction = function(event){
 	let clicker = function(event){
 		//
 		//only functions when the game has not started
-		if(gameStarted){
-			console.log('game Started Already');
+		if(gameStarted || editorStarted){
+			console.log('functions begun');
 			return;
 		}
 		
@@ -16,12 +16,18 @@ menuFunction = function(event){
 		//
 		//click only when at certain coordinates
 		console.log('x: ' + event.clientX + ', y: ' + event.clientY);	
-		if(event.clientX >= leftshift + ((canvas.width / 2) - 131) && event.clientY <= leftshift + ((canvas.width / 2) + 131)
+		if(event.clientX >= leftshift + ((canvas.width / 2) - 131) && event.clientX <= leftshift + ((canvas.width / 2) + 131)
 		   && event.clientY >= downshift + ((canvas.height / 2) + 65) && event.clientY <= downshift + ((canvas.height / 2) + 65 + 72)){
 		   	gameStarted = true;
 		   	console.log('clicked');
 		   	progShell();
-		   }
+		}
+		else if(event.clientX >= leftshift + ((canvas.width / 2) - 131) && event.clientX <= leftshift + ((canvas.width / 2) + 131)
+		   && event.clientY >= downshift + ((canvas.height / 2) + 165) && event.clientY <= downshift + ((canvas.height / 2) + 165 + 72)){
+		   	console.log('editor clicked');
+		   	editorStarted = true;
+		 	editor();  
+		}
 	};
 	
 	return clicker;
@@ -41,6 +47,10 @@ function menu(){
 	//draw the start button	
 	draw(title[1], (canvas.width / 2) - 131, (canvas.height / 2) + 50);
 	console.log('start button drawed');
+	
+	//
+	//draw the editor button
+	draw(title[2], (canvas.width / 2) - 131, (canvas.height / 2) + 150);
 	
 	//
 	//enable clicking of the screen

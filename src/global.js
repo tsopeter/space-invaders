@@ -12,7 +12,7 @@ let resourceFiles = ['sprites/001A.png', 'sprites/002.png', 'sprites/003.png', '
 		     'sprites/005.png', 'sprites/006.png', 'sprites/007.png', 'sprites/005F.png',
 		     'sprites/008.png'];
 		     
-let titleFiles = ['menu/title01.png', 'menu/start002A.png'];
+let titleFiles = ['menu/title01.png', 'menu/start002A.png', 'menu/editor003.png'];
 
 let resource = loadImages(resourceFiles);
 let title = loadImages(titleFiles);
@@ -25,6 +25,7 @@ let p = new player(0, gameDimension.height - 2);
 let gameFlag = true;
 
 let gameStarted = false;
+let editorStarted = false;
 
 let invaderReverse = false;
 
