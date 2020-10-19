@@ -63,7 +63,7 @@ function setup(){
 	console.log('invader object(s) loaded');
 	
 	
-	blockAdder(3, 6, 18, 20);
+	chunkBlockAdder();
 	console.log('block object(s) loaded');
 	
 	objArr.push(e);
@@ -71,6 +71,11 @@ function setup(){
 	
 	console.log('setup finished');
 	
+}
+function chunkBlockAdder(){
+	for(var i = 2; i < gameDimension.width; i += 8){
+		blockAdder(i, 3 + i, 18, 20);
+	}
 }
 
 function blockAdder(start, end, startHeight, endHeight){
