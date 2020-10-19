@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<style>
+			body {background-color: azure;}
+			body {border: 5px solid powderblue;}
+			span {color: cornflowerblue;}
+			span {font-family: Monospace}
+			button {background-color: #aac5f5;}
+			button {border: 1px solid azure;}
+			button {color: cornflowerblue;}
+			
+		</style>
+	</head>
+	<body>
+		<div id="viewport">
+			<canvas
+				id="mycanvas"
+				width="800"
+				height="600"
+				style="border: 5px solid blue;
+				       position: absolute;
+				       top: 10%;
+				       left: 25%;"
+			></canvas>
+			<div id="controls">
+				<button id="game">END GAME</button>
+				<span id="frame-counter">frame: </span>
+			</div>
+		</div>
+		<div id="credits">
+			<span id="credits"
+			      style="position: absolute;
+			      	     top: 96%;
+			      	     left: 1%;"
+			>Credits: ○→曹＊ (tsopeter@ku.edu)</span>
+		</div>
+	</body>
+	<script src="resource.js"></script>
+	<script src="object.js"></script>
+	<script src="render.js"></script>
+	<script src="game.js"></script>
+	<script src="global.js"></script>
+	
+	<script src="run.js"></script>
+	<script src="main.js"></script>
+</html>	
