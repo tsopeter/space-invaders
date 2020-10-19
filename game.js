@@ -62,9 +62,8 @@ function setup(){
 	let g = new invader(13, 10, 1, resource[4], resource[7]);
 	console.log('invader object(s) loaded');
 	
-	for(var i = 0; i < 10; i++){
-		objArr.push(new block(5 + i, gameDimension.height - 4, resource[8]));
-	}
+	
+	blockAdder(3, 6, 18, 20);
 	console.log('block object(s) loaded');
 	
 	objArr.push(e);
@@ -72,6 +71,14 @@ function setup(){
 	
 	console.log('setup finished');
 	
+}
+
+function blockAdder(start, end, startHeight, endHeight){
+	for(var i = startHeight; i <= endHeight; i++){
+		for(var k = start; k <=  end; k++){
+			objArr.push(new block(k, i, resource[8]));
+		}
+	}
 }
 
 function progShell(){
