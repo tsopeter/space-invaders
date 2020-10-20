@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		//
 		//Promise that all resource images have been loaded
 		Promise.all(resource).then(() => {
+			//
+			//run the main function
 			main();
 		});
 	});
