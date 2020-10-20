@@ -1,7 +1,7 @@
 function editSystem(event){
 	return (event) => {
 		if(editorStarted){
-			console.log('hello');
+			//console.log('hello');
 			
 			let boundary = canvas.getBoundingClientRect();
 			let leftshift = boundary.x;
@@ -12,7 +12,7 @@ function editSystem(event){
 			console.log('x: ' + event.clientX + ', y: ' + event.clientY);	
 			if(event.clientX >= leftshift + 0 && event.clientX <= leftshift + 75
 		  	&& event.clientY >= downshift + 0 && event.clientY <= downshift + 21){
-		  		console.log('exit clicked');
+		  		//console.log('exit clicked');
 		  		editorStarted = false;
 		  		
 		  		//
@@ -22,8 +22,8 @@ function editSystem(event){
 			else{
 				//
 				//compute the points to click
-				let placeXi = Math.floor((event.clientX - leftshift) / scale);
-				let placeYi = Math.floor((event.clientY - downshift) / scale);
+				let placeXi = Math.floor(event.clientX - leftshift - 20);
+				let placeYi = Math.floor(event.clientY - downshift - 20);
 				
 				console.log('xi: ' + placeXi + ', yi: ' + placeYi);
 				
@@ -31,8 +31,7 @@ function editSystem(event){
 				//check for already placed objects
 				let placable = true;
 				for(var i = 0; i < objArr.length; i++){
-					let o = objArr[i];
-					if(o.x == placeXi && o.y == placeYi){
+					if(!blockCollision(placeXi, placeYi, objArr[i])){
 						objArr.splice(i, 1);
 						placable = false;
 					}
@@ -41,7 +40,7 @@ function editSystem(event){
 				//
 				//place blocks
 				if(placable){
-					objArr.push(new block(placeXi, placeYi, resource[8]));
+					objArr.push(new invader(placeXi, placeYi, 1, resource[4], resource[7]));
 				}
 				
 				draw(title[3], 0, 0);
@@ -49,6 +48,23 @@ function editSystem(event){
 			}
 		}
 	};
+}
+
+function blockCollision(x, y, o){
+	//
+	//make sure that anchor point is out of present block
+	if(o.x <= x && x < o.x + o.scale && o.y <= y && y < o.y + o.scale){
+		return false;
+	}
+	//
+	//make sure that alternative point is out of present block
+	let x2 = x + objScale;
+	let y2 = y + objScale;
+	
+	if(o.x <= x2 && x2 < o.x + o.scale && o.y <= y2 && y < o.y + o.scale){
+		return false;
+	}
+	return true;
 }
 
 function editor(){

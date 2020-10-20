@@ -3,7 +3,7 @@ menuFunction = function(event){
 		//
 		//only functions when the game has not started
 		if(gameStarted || editorStarted){
-			console.log('functions begun');
+			//console.log('functions begun');
 			return;
 		}
 		
@@ -81,14 +81,14 @@ function gameSetup(){
 	
 	//
 	//setup the enemy
-	objArr.push(new invader(10, 10, 1, resource[4], resource[7]));
-	objArr.push(new invader(12, 10, 1, resource[4], resource[7]));
-	objArr.push(new invader(14, 10, 1, resource[4], resource[7]));
+	//objArr.push(new invader(10, 10, 1, resource[4], resource[7]));
+	//objArr.push(new invader(12, 10, 1, resource[4], resource[7]));
+	//objArr.push(new invader(14, 10, 1, resource[4], resource[7]));
 	console.log('invader object(s) loaded');
 	
 	//
 	//setup blocks
-	//chunkBlockAdder();
+	chunkBlockAdder();
 	//console.log('block object(s) loaded');
 	
 	console.log('setup finished');

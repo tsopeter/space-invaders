@@ -21,7 +21,7 @@ let title = loadImages(titleFiles);
 let projectileArr = new Array;
 let objArr = new Array;
 		
-let p = new player(0, 21);
+let p = new player(0, 504);
 
 let gameFlag = true;
 

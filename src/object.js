@@ -2,8 +2,8 @@ class player{
 	constructor(x, y){
 		this.scale = objScale;
 		this.Name = 'player';
-		this.x = x * this.scale;
-		this.y = y * this.scale;
+		this.x = x;
+		this.y = y;
 		this.acceleration = 0.1;
 		this.alive = true;
 		
@@ -68,7 +68,7 @@ class player{
 	}
 	
 	fireProjectile(){
-		projectileArr.push(new projectile(this.x, this.y - this.scale, -1, resource[5]));
+		projectileArr.push(new projectile(this.x, this.y - this.scale -1, -1, resource[5]));
 	}
 	
 	state(i){
@@ -124,6 +124,10 @@ class projectile{
 				objArr[i].state(false);
 				return true;
 			}
+			else if(this.middleX >= o.x && this.middleX < o.x + o.scale && this.y + this.scale >= o.y && this.y + this.scale < o.y + o.scale){
+				objArr[i].state(false);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -140,8 +144,8 @@ class projectile{
 class invader{
 	constructor(x, y, speed, sprite, altSprite){
 		this.scale = objScale;
-		this.x = x * this.scale;
-		this.y = y * this.scale;
+		this.x = x;
+		this.y = y;
 		this.speed = speed * 5;
 		this.Name = 'invader';
 		
@@ -198,7 +202,7 @@ class invader{
 	}
 	
 	fireProjectile(){
-		projectileArr.push(new projectile(this.x, this.y + this.scale, 1, resource[6]));
+		projectileArr.push(new projectile(this.x, this.y + this.scale + 1, 1, resource[6]));
 	}
 	
 	state(i){
