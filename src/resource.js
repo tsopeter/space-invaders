@@ -1,9 +1,13 @@
+let allImagesLoaded;
+
 function loadImages(fileArray){
 	let resourceCache = new Array;
 	for(var i = 0; i < fileArray.length; i++){
 		let t_p = new Promise(resolve => {
 			let t_img = new Image();
+			allImagesLoaded = false;
 			t_img.addEventListener('load', () => {
+				allImagesLoaded = true;
 				resolve(t_img);
 			});
 			t_img.src = fileArray[i];
