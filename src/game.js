@@ -2,8 +2,8 @@ menuFunction = function(event){
 	let clicker = function(event){
 		//
 		//only functions when the game has not started
-		if(gameStarted){
-			console.log('game Started Already');
+		if(gameStarted || editorStarted){
+			console.log('functions begun');
 			return;
 		}
 		
@@ -16,12 +16,18 @@ menuFunction = function(event){
 		//
 		//click only when at certain coordinates
 		console.log('x: ' + event.clientX + ', y: ' + event.clientY);	
-		if(event.clientX >= leftshift + ((canvas.width / 2) - 131) && event.clientY <= leftshift + ((canvas.width / 2) + 131)
+		if(event.clientX >= leftshift + ((canvas.width / 2) - 131) && event.clientX <= leftshift + ((canvas.width / 2) + 131)
 		   && event.clientY >= downshift + ((canvas.height / 2) + 65) && event.clientY <= downshift + ((canvas.height / 2) + 65 + 72)){
 		   	gameStarted = true;
 		   	console.log('clicked');
 		   	progShell();
-		   }
+		}
+		else if(event.clientX >= leftshift + ((canvas.width / 2) - 131) && event.clientX <= leftshift + ((canvas.width / 2) + 131)
+		   && event.clientY >= downshift + ((canvas.height / 2) + 165) && event.clientY <= downshift + ((canvas.height / 2) + 165 + 72)){
+		   	console.log('editor clicked');
+		   	editorStarted = true;
+		 	editor();  
+		}
 	};
 	
 	return clicker;
@@ -29,6 +35,18 @@ menuFunction = function(event){
 
 function ending(){
 
+}
+
+function menuShell(){
+	menu();
+	menuAddClicker();
+}
+
+function menuAddClicker(){
+	//
+	//enable clicking of the screen
+	canvas.addEventListener('click', menuFunction(event));	
+	console.log('canvas added click');	
 }
 
 function menu(){
@@ -43,18 +61,23 @@ function menu(){
 	console.log('start button drawed');
 	
 	//
-	//enable clicking of the screen
-	canvas.addEventListener('click', menuFunction(event));	
-	console.log('canvas added click');
+	//draw the editor button
+	draw(title[2], (canvas.width / 2) - 131, (canvas.height / 2) + 150);
 }
 
-function setup(){
-	console.log('setup started');
+function playerSetup(){
+	console.log('player setup started');
 	//
 	//load all sprites into the respective objects
 	p.setSprite(resource[0]);
 	objArr.push(p);
 	console.log('player object loaded');
+	
+	console.log('player setup ended');	
+}
+
+function gameSetup(){
+	console.log('setup started');
 	
 	//
 	//setup the enemy
@@ -87,10 +110,13 @@ function blockAdder(start, end, startHeight, endHeight){
 
 function progShell(){
 	console.log('programShell Called');
-	canvas.removeEventListener('click', menuFunction(event));
 	console.log('canvas removed click');
 	
 	console.log('program Called');
+	playerSetup();
+	if(!edited || objArr.length == 1){
+		gameSetup();
+	}
 	prog(0);
 }
 
