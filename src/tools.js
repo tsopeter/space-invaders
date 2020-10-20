@@ -2,8 +2,6 @@ function editSystem(event){
 	return (event) => {
 		if(editorStarted){
 			console.log('hello');
-			draw(title[3], 0, 0);
-			render();
 			
 			let boundary = canvas.getBoundingClientRect();
 			let leftshift = boundary.x;
@@ -25,13 +23,29 @@ function editSystem(event){
 				//
 				//compute the points to click
 				let placeXi = Math.floor((event.clientX - leftshift) / scale);
-				let placeXf = Math.ceil((event.clientX - leftshift) / scale);
-				
 				let placeYi = Math.floor((event.clientY - downshift) / scale);
-				let placeYf = Math.ceil((event.clientY - downshift) / scale);
 				
 				console.log('xi: ' + placeXi + ', yi: ' + placeYi);
-				console.log('xf: ' + placeXf + ', yf: ' + placeYf);
+				
+				//
+				//check for already placed objects
+				let placable = true;
+				for(var i = 0; i < objArr.length; i++){
+					let o = objArr[i];
+					if(o.x == placeXi && o.y == placeYi){
+						objArr.splice(i, 1);
+						placable = false;
+					}
+				}
+				
+				//
+				//place blocks
+				if(placable){
+					objArr.push(new block(placeXi, placeYi, resource[8]));
+				}
+				
+				draw(title[3], 0, 0);
+				render();
 			}
 		}
 	};
