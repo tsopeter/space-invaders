@@ -65,8 +65,8 @@ function setup(){
 	
 	//
 	//setup blocks
-	chunkBlockAdder();
-	console.log('block object(s) loaded');
+	//chunkBlockAdder();
+	//console.log('block object(s) loaded');
 	
 	console.log('setup finished');
 	
@@ -116,7 +116,7 @@ function update(){
 	//checks for cases
 	for(var i = 0; i < objArr.length; i++){
 		let o = objArr[i];
-		if(o.Name == 'invader' && (o.x == 0 || o.x >= gameDimension.width - 1)){
+		if(o.Name == 'invader' && (o.x <= 0 || o.x >= gameDimension.width - objScale)){
 			invaderReverse = true;
 			invaderDown = true;
 			break;

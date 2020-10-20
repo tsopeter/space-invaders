@@ -1,19 +1,36 @@
 class player{
 	constructor(x, y){
+		this.scale = objScale;
 		this.Name = 'player';
-		this.x = x;
-		this.y = y;
+		this.x = x * this.scale;
+		this.y = y * this.scale;
+		this.acceleration = 0.1;
 		this.alive = true;
 		
 		document.addEventListener('keydown', (e) => {
 			if(this.alive){
 				//console.log(e.key);
+				let threshold = 8;
+				let factor = 20;
+				let init_acceleration = 8;
 				if(e.key == 'a' && this.x > 0){
-					this.x--;
+					if(Math.abs(this.acceleration) < threshold){
+						this.acceleration = init_acceleration;
+					}
+					else{
+						this.acceleration = -this.acceleration;
+					}
+					this.acceleration = -Math.sqrt(Math.abs(this.acceleration) * factor);
 					//console.log(this.x);
 				}
-				else if(e.key == 'd' && !(this.x >= gameDimension.width - 1)){
-					this.x++;
+				else if(e.key == 'd' && !(this.x >= gameDimension.width - this.scale)){
+					if(Math.abs(this.acceleration) < threshold){
+						this.acceleration = init_acceleration;
+					}
+					else{
+						this.acceleration = -this.acceleration;
+					}
+					this.acceleration = Math.sqrt(Math.abs(this.acceleration) * factor);
 					//console.log(this.x);
 				}
 				else if(e.key == ' '){
@@ -25,7 +42,25 @@ class player{
 	}
 	
 	update(){
-	
+		let threshold = 0.5;
+		let factor = 1;
+		
+		if(this.acceleration < 0){
+			factor = -1;
+		}
+		
+		if(Math.abs(this.acceleration) > threshold){
+			if(this.x + this.acceleration < 0 || this.x + this.acceleration >= gameDimension.width - this.scale){
+				this.acceleration = 0;
+				return;
+			}
+			this.x += this.acceleration;
+			
+			this.acceleration = Math.abs(this.acceleration) * 0.8 * factor;
+		}
+		if(Math.abs(this.acceleration) < threshold){
+			this.acceleration = 0;
+		}
 	}
 		
 	setSprite(pr){
@@ -33,7 +68,7 @@ class player{
 	}
 	
 	fireProjectile(){
-		projectileArr.push(new projectile(this.x, this.y - 1, -1, resource[5]));
+		projectileArr.push(new projectile(this.x, this.y - this.scale, -1, resource[5]));
 	}
 	
 	state(i){
@@ -50,9 +85,11 @@ class player{
 
 class projectile{
 	constructor(x, y, speed, sprite){
+		this.scale = objScale;
 		this.x = x;
+		this.middleX = this.x + 12;
 		this.y = y;
-		this.speed = speed;
+		this.speed = speed * this.scale;
 		this.sprite = sprite;
 		this.Name = 'projectile';
 	}
@@ -60,15 +97,13 @@ class projectile{
 	update(){
 		//
 		//check for out-of-bounds
-		if(this.y - 1 < 0 || this.y + 1 >= gameDimension.height - 1){
+		if(this.y - this.speed < 0 || this.y + this.speed >= gameDimension.height - this.scale){
 			this.remove();
 			return;
 		}
-		//console.log('projectile: ' + this.x + ' ' + this.y);
-		//console.log(gameBoard.returnObj(this.x, this.y));
-		//	
-		//check for collision
-		//console.log(this.y + this.speed);
+
+		//
+		//check for collision with other objects
 		if(this.collision()){
 			this.remove();
 			return;
@@ -85,7 +120,7 @@ class projectile{
 	collision(){
 		for(var i = 0; i < objArr.length; i++){
 			let o = objArr[i];
-			if(this.x == o.x && this.y + this.speed == o.y){
+			if(this.middleX >= o.x && this.middleX < o.x + o.scale && this.y >= o.y && this.y  < o.y + o.scale){
 				objArr[i].state(false);
 				return true;
 			}
@@ -104,9 +139,10 @@ class projectile{
 
 class invader{
 	constructor(x, y, speed, sprite, altSprite){
-		this.x = x;
-		this.y = y;
-		this.speed = speed;
+		this.scale = objScale;
+		this.x = x * this.scale;
+		this.y = y * this.scale;
+		this.speed = speed * 5;
 		this.Name = 'invader';
 		
 		this.sprite = sprite;
@@ -145,29 +181,24 @@ class invader{
 		//move
 		console.log('invaderReverse: ' + invaderReverse);
 		
-		this.moveCounter++;
-		if(this.moveCounter == this.moveRate){
-			if(invaderDown){
-				this.y = this.y + 1;
-			}
-			if(invaderReverse){
-				this.speed = -1 * this.speed;
-			}
-		
-			this.x = this.x + this.speed;
-			this.moveCounter = 0;
+		if(invaderDown){
+			this.y = this.y + this.scale;
 		}
-		
+		if(invaderReverse){
+			this.speed = -1 * this.speed;
+		}
+	
+		this.x = this.x + this.speed;
 		
 		//
 		//check if out of bounds
-		if(this.y >= gameDimension.height - 1){
+		if(this.y >= gameDimension.height){
 			this.state(false);
 		}
 	}
 	
 	fireProjectile(){
-		projectileArr.push(new projectile(this.x, this.y + 1, 1, resource[6]));
+		projectileArr.push(new projectile(this.x, this.y + this.scale, 1, resource[6]));
 	}
 	
 	state(i){
@@ -186,6 +217,7 @@ class block{
 	constructor(x, y, sprite){
 		this.x = x;
 		this.y = y;
+		this.scale = objScale;
 		this.sprite = sprite;
 		this.Name = 'block';
 	}

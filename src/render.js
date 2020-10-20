@@ -23,12 +23,12 @@ function render(){
 	
 	for(var i = 0; i < objArr.length; i++){
 		let o = objArr[i];
-		draw(o.sprite, scale * o.x, scale * o.y);
+		draw(o.sprite, o.x, o.y);
 	}
 	
 	for(var i = 0; i < projectileArr.length; i++){
 		let q = projectileArr[i];
-		draw(q.sprite, scale * q.x, scale * q.y);
+		draw(q.sprite, q.x, q.y);
 	}
 }
 

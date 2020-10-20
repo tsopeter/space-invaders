@@ -2,10 +2,11 @@ let canvas = document.getElementById('mycanvas');
 let ctx = canvas.getContext('2d');
 
 let scale = 25;
+let objScale = 25;
 
 var gameDimension = {
-	width: canvas.width / scale,
-	height: canvas.height / scale
+	width: canvas.width,
+	height: canvas.height
 }
 
 let resourceFiles = ['sprites/001A.png', 'sprites/002.png', 'sprites/003.png', 'sprites/004.png',
@@ -20,7 +21,7 @@ let title = loadImages(titleFiles);
 let projectileArr = new Array;
 let objArr = new Array;
 		
-let p = new player(0, gameDimension.height - 2);
+let p = new player(0, 21);
 
 let gameFlag = true;
 
