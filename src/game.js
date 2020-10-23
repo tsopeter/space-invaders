@@ -81,9 +81,9 @@ function gameSetup(){
 	
 	//
 	//setup the enemy
-	//objArr.push(new invader(10, 10, 1, resource[4], resource[7]));
-	//objArr.push(new invader(12, 10, 1, resource[4], resource[7]));
-	//objArr.push(new invader(14, 10, 1, resource[4], resource[7]));
+	objArr.push(new invader(10 * objScale, 10 * objScale, 1, resource[4], resource[7]));
+	objArr.push(new invader(12 * objScale, 10 * objScale, 1, resource[4], resource[7]));
+	objArr.push(new invader(14 * objScale, 10 * objScale, 1, resource[4], resource[7]));
 	console.log('invader object(s) loaded');
 	
 	//
@@ -95,14 +95,14 @@ function gameSetup(){
 	
 }
 function chunkBlockAdder(){
-	for(var i = 2; i < gameDimension.width; i += 8){
-		blockAdder(i, 3 + i, 18, 20);
+	for(var i = 50; i < gameDimension.width; i += 200){
+		blockAdder(i, 75 + i, 450, 500);
 	}
 }
 
 function blockAdder(start, end, startHeight, endHeight){
-	for(var i = startHeight; i <= endHeight; i++){
-		for(var k = start; k <=  end; k++){
+	for(var i = startHeight; i <= endHeight; i +=  objScale){
+		for(var k = start; k <=  end; k += objScale){
 			objArr.push(new block(k, i, resource[8]));
 		}
 	}
