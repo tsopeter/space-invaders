@@ -157,6 +157,8 @@ class invader{
 		this.moveCounter = 0;
 			
 		this.alive = true;
+		
+		this.top = false;
 	}
 	
 	update(){
@@ -170,15 +172,18 @@ class invader{
 		}
 	
 		//
-		//fire a projectile	
-		let arg0 = Math.floor(Math.random() * 25);
-		if(arg0 == 2){
-			this.fireProjectile();
-			let temp = this.sprite;
-			this.sprite = this.altSprite;
-			this.altSprite = temp;
-			this.change = true;
-			
+		//fire a projectile
+		//only fire a projectile when it is the bottom at the given x value	
+		if(this.top){
+			let arg0 = Math.floor(Math.random() * 25);
+			if(arg0 == 2){
+				this.fireProjectile();
+				let temp = this.sprite;
+				this.sprite = this.altSprite;
+				this.altSprite = temp;
+				this.change = true;
+				
+			}
 		}
 		
 		//
