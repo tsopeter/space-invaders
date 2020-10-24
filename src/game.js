@@ -127,7 +127,7 @@ function prog(x){
 			update();
 			render();
 			prog(x);
-		}, 50);
+		}, 17);
 	}
 }
 
