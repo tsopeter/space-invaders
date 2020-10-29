@@ -140,7 +140,7 @@ function prog(x){
 			update();
 			render();
 			prog(x);
-		}, 17);
+		}, 20);
 	}
 }
 

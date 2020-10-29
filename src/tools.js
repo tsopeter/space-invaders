@@ -1,3 +1,10 @@
+let selectBlockType = 0;
+const blockType = {
+	INVADER: 0,
+	BLOCK: 1	
+};
+Object.freeze(blockType);
+
 function editSystem(event){
 	return (event) => {
 		if(editorStarted){
@@ -40,7 +47,14 @@ function editSystem(event){
 				//
 				//place blocks
 				if(placable){
-					objArr.push(new invader(placeXi, placeYi, 1, resource[4], resource[7]));
+					switch (selectBlockType) {
+						case blockType.INVADER:
+							objArr.push(new invader(placeXi, placeYi, 1, resource[4], resource[7]));
+							break;
+						case blockType.BLOCK:
+							objArr.push(new block(placeXi, placeYi, resource[8]));
+							break;
+					}
 				}
 				
 				draw(title[3], 0, 0);
