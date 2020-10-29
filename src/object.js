@@ -68,23 +68,24 @@ class player{
 	}
 	
 	fireProjectile(){
-		projectileArr.push(new projectile(this.x, this.y - this.scale -1, -1, resource[5]));
+		projectileArr.push(new projectile(this.x, this.y - this.scale -1, -1, resource[5], this.Name));
 	}
 	
 	state(i){
 		if(i){
-	 		alert('You won the game');
+	 		gameFlag = false;
+	 		ending(1);
 		}
 		else{
-	 		alert('You lost the game');
 	 		this.alive = false;
 	 		gameFlag = false;
+	 		ending(2);
 		}
 	}
 }
 
 class projectile{
-	constructor(x, y, speed, sprite){
+	constructor(x, y, speed, sprite, objMiss){
 		this.scale = objScale;
 		this.x = x;
 		this.middleX = this.x + 12;
@@ -92,6 +93,7 @@ class projectile{
 		this.speed = speed * this.scale;
 		this.sprite = sprite;
 		this.Name = 'projectile';
+		this.objMiss = objMiss;
 	}
 	
 	update(){
@@ -120,11 +122,11 @@ class projectile{
 	collision(){
 		for(var i = 0; i < objArr.length; i++){
 			let o = objArr[i];
-			if(this.middleX >= o.x && this.middleX < o.x + o.scale && this.y >= o.y && this.y  < o.y + o.scale){
+			if(this.middleX >= o.x && this.middleX < o.x + o.scale && this.y >= o.y && this.y  < o.y + o.scale && o.Name != this.objMiss){
 				objArr[i].state(false);
 				return true;
 			}
-			else if(this.middleX >= o.x && this.middleX < o.x + o.scale && this.y + this.scale >= o.y && this.y + this.scale < o.y + o.scale){
+			else if(this.middleX >= o.x && this.middleX < o.x + o.scale && this.y + this.scale >= o.y && this.y + this.scale < o.y + o.scale && o.Name != this.objMiss){
 				objArr[i].state(false);
 				return true;
 			}
@@ -158,7 +160,7 @@ class invader{
 			
 		this.alive = true;
 		
-		this.top = false;
+		this.top = true;
 	}
 	
 	update(){
@@ -175,7 +177,7 @@ class invader{
 		//fire a projectile
 		//only fire a projectile when it is the bottom at the given x value	
 		if(this.top){
-			let arg0 = Math.floor(Math.random() * 25);
+			let arg0 = Math.floor(Math.random() * 75);
 			if(arg0 == 2){
 				this.fireProjectile();
 				let temp = this.sprite;
@@ -207,7 +209,7 @@ class invader{
 	}
 	
 	fireProjectile(){
-		projectileArr.push(new projectile(this.x, this.y + this.scale + 1, 1, resource[6]));
+		projectileArr.push(new projectile(this.x, this.y + this.scale + 1, 0.5, resource[6], this.Name));
 	}
 	
 	state(i){

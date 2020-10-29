@@ -33,8 +33,20 @@ menuFunction = function(event){
 	return clicker;
 }
 
-function ending(){
-
+function ending(x){
+	console.log(x);
+	if(x == 1){
+		alert("You Win");
+		
+		//
+		//draw the winning screen
+	}
+	else{
+		alert("You Lose");
+		
+		//
+		//draw the losing screen
+	}
 }
 
 function menuShell(){
@@ -81,6 +93,7 @@ function gameSetup(){
 	
 	//
 	//setup the enemy
+	objArr.push(new invader(10 * objScale, 8 * objScale, 1, resource[4], resource[7]));
 	objArr.push(new invader(10 * objScale, 10 * objScale, 1, resource[4], resource[7]));
 	objArr.push(new invader(12 * objScale, 10 * objScale, 1, resource[4], resource[7]));
 	objArr.push(new invader(14 * objScale, 10 * objScale, 1, resource[4], resource[7]));
@@ -167,7 +180,7 @@ function update(){
 	if(invaderCount == 0){
 		alert('You Won the game!');
 		gameFlag = false;
-		ending();
+		p.state(true);
 	}
 	
 	//
