@@ -3,7 +3,7 @@ menuFunction = function(event){
 		//
 		//only functions when the game has not started
 		if(gameStarted || editorStarted){
-			console.log('functions begun');
+			//console.log('functions begun');
 			return;
 		}
 		
@@ -33,8 +33,20 @@ menuFunction = function(event){
 	return clicker;
 }
 
-function ending(){
-
+function ending(x){
+	console.log(x);
+	if(x == 1){
+		alert("You Win");
+		
+		//
+		//draw the winning screen
+	}
+	else{
+		alert("You Lose");
+		
+		//
+		//draw the losing screen
+	}
 }
 
 function menuShell(){
@@ -81,28 +93,29 @@ function gameSetup(){
 	
 	//
 	//setup the enemy
-	objArr.push(new invader(10, 10, 1, resource[4], resource[7]));
-	objArr.push(new invader(12, 10, 1, resource[4], resource[7]));
-	objArr.push(new invader(14, 10, 1, resource[4], resource[7]));
+	objArr.push(new invader(10 * objScale, 8 * objScale, 1, resource[4], resource[7]));
+	objArr.push(new invader(10 * objScale, 10 * objScale, 1, resource[4], resource[7]));
+	objArr.push(new invader(12 * objScale, 10 * objScale, 1, resource[4], resource[7]));
+	objArr.push(new invader(14 * objScale, 10 * objScale, 1, resource[4], resource[7]));
 	console.log('invader object(s) loaded');
 	
 	//
 	//setup blocks
 	chunkBlockAdder();
-	console.log('block object(s) loaded');
+	//console.log('block object(s) loaded');
 	
 	console.log('setup finished');
 	
 }
 function chunkBlockAdder(){
-	for(var i = 2; i < gameDimension.width; i += 8){
-		blockAdder(i, 3 + i, 18, 20);
+	for(var i = 50; i < gameDimension.width; i += 200){
+		blockAdder(i, 75 + i, 450, 500);
 	}
 }
 
 function blockAdder(start, end, startHeight, endHeight){
-	for(var i = startHeight; i <= endHeight; i++){
-		for(var k = start; k <=  end; k++){
+	for(var i = startHeight; i <= endHeight; i +=  objScale){
+		for(var k = start; k <=  end; k += objScale){
 			objArr.push(new block(k, i, resource[8]));
 		}
 	}
@@ -127,7 +140,7 @@ function prog(x){
 			update();
 			render();
 			prog(x);
-		}, 50);
+		}, 20);
 	}
 }
 
@@ -142,7 +155,7 @@ function update(){
 	//checks for cases
 	for(var i = 0; i < objArr.length; i++){
 		let o = objArr[i];
-		if(o.Name == 'invader' && (o.x == 0 || o.x >= gameDimension.width - 1)){
+		if(o.Name == 'invader' && (o.x <= 0 || o.x >= gameDimension.width - objScale)){
 			invaderReverse = true;
 			invaderDown = true;
 			break;
@@ -167,7 +180,7 @@ function update(){
 	if(invaderCount == 0){
 		alert('You Won the game!');
 		gameFlag = false;
-		ending();
+		p.state(true);
 	}
 	
 	//
