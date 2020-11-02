@@ -1,5 +1,5 @@
 function loadImages(fileArray){
-	let resourceCache = new Array;
+	let resourceCache = new Array(fileArray.length);
 	for(var i = 0; i < fileArray.length; i++){
 		let t_p = new Promise(resolve => {
 			let t_img = new Image();
@@ -8,7 +8,7 @@ function loadImages(fileArray){
 			});
 			t_img.src = fileArray[i];
 		});
-		resourceCache.push(t_p);
+		resourceCache[i] = t_p;
 	}
 	return resourceCache;
 }
