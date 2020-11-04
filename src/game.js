@@ -92,8 +92,8 @@ function invaderSetup(){
 	for(let i = 4; i < 10; i++){
 		objArr.push(new invader(8 * objScale, i * objScale, 1, resource[4], resource[7]));
 		objArr.push(new invader(10 * objScale, i * objScale, 1, resource[4], resource[7]));
-		objArr.push(new invader(12 * objScale, i * objScale, 1, resource[4], resource[7]));
 		objArr.push(new invader(14 * objScale, i * objScale, 1, resource[4], resource[7]));
+		objArr.push(new invader(16 * objScale, i * objScale, 1, resource[4], resource[7]));
 	}
 	console.log('invader object(s) loaded');
 }
@@ -182,6 +182,7 @@ function update(){
 			invaderCount++;
 		}
 	}
+	numInvaders = Math.sqrt(invaderCount);
 	
 	if(invaderCount == 0){
 		alert('You Won the game!');

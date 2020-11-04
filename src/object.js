@@ -177,7 +177,7 @@ class invader{
 		//fire a projectile
 		//only fire a projectile when it is the bottom at the given x value	
 		if(this.top){
-			let arg0 = Math.floor(Math.random() * 75);
+			let arg0 = Math.floor(Math.random() * 75 * numInvaders);
 			if(arg0 == 2){
 				this.fireProjectile();
 				let temp = this.sprite;

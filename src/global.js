@@ -33,6 +33,8 @@ let invaderReverse = false;
 
 let invaderDown = false;
 
+let numInvaders = 0;
+
 document.getElementById("game").addEventListener('click', () => {
 	gameFlag = false;
 });
