@@ -26,6 +26,17 @@ function editSystem(event){
 		  		//draw the title screen
 		  		menu();	
 			}
+			else if(event.clientX >= leftshift + 0 && event.clientX <= leftshift + 75 
+			&& event.clientY >= downshift + 0 && event.clientY <= downshift + 21){
+			
+				//change blocktype
+				if(selectBlockType == blockType.INVADER){
+					selectBlockType = blockType.BLOCK;
+				}
+				else{
+					selectBlockType = blockType.INVADER;
+				}
+			}
 			else{
 				//
 				//compute the points to click
@@ -82,12 +93,20 @@ function blockCollision(x, y, o){
 }
 
 function editor(){
+	//set flags to editor
 	edited = true;
 	console.log('editor called');
 	
+	//draw the exit button
 	draw(title[3], 0, 0);
+	
+	//draw the change block button
+	
+	
+	//render the new objects
 	render();
 	
+	//add the event listener
 	canvas.addEventListener('click', editSystem(event));
 	console.log('editor ended');
 }
